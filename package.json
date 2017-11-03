@@ -19,6 +19,10 @@
         "url": "https://github.com/interconnectit/hadrian-js/issues"
     },
     "homepage": "https://github.com/interconnectit/hadrian-js#readme",
+    "engines": {
+        "node": "6.11",
+        "npm": "5.5"
+    },
     "dependencies": {
     },
     "devDependencies": {
