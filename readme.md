@@ -24,6 +24,6 @@ $ npm run lint
 $ npm run test
 ```
 
-[ico-travis]: https://travis-ci.com/interconnectit/hadrian-js.svg?token=UxsUAjRNVASpkTY5n3aZ&branch=master
+[ico-travis]: https://travis-ci.com/interconnectit/hadrian-js.svg?branch=master
 
 [link-travis]: https://travis-ci.com/interconnectit/hadrian-js
