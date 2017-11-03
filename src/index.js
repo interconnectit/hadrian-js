@@ -4,4 +4,4 @@
  * MIT Licensed
  */
 
-'use strict';
+'use strict'

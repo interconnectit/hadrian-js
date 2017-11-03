@@ -4,7 +4,7 @@
     "description": "HadrianJS Framework",
     "main": "src/index.js",
     "scripts": {
-        "link": "eslint src"
+        "lint": "eslint src"
     },
     "repository": {
         "type": "git",
