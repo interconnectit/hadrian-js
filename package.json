@@ -1,0 +1,36 @@
+{
+    "name": "hadrian-js",
+    "version": "0.0.0",
+    "description": "HadrianJS Framework",
+    "main": "src/index.js",
+    "scripts": {
+        "lint": "eslint src"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/interconnectit/hadrian-js.git"
+    },
+    "keywords": [
+        "hadrian"
+    ],
+    "author": "interconnect/it",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/interconnectit/hadrian-js/issues"
+    },
+    "homepage": "https://github.com/interconnectit/hadrian-js#readme",
+    "engines": {
+        "node": "6.11",
+        "npm": "5.5"
+    },
+    "dependencies": {
+    },
+    "devDependencies": {
+        "eslint": "4.10.0",
+        "eslint-config-standard": "10.2.1",
+        "eslint-plugin-import": "2.8.0",
+        "eslint-plugin-node": "5.2.1",
+        "eslint-plugin-promise": "3.6.0",
+        "eslint-plugin-standard": "3.0.1"
+    }
+}
