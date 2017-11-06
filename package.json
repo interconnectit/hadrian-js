@@ -1,5 +1,5 @@
 {
-    "name": "hadrian-js",
+    "name": "@interconnectit/hadrian",
     "version": "0.0.0",
     "description": "HadrianJS Framework",
     "main": "src/index.js",
