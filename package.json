@@ -4,6 +4,7 @@
     "description": "HadrianJS Framework",
     "main": "src/index.js",
     "scripts": {
+        "build": "webpack",
         "lint": "eslint src"
     },
     "repository": {
@@ -23,14 +24,14 @@
         "node": "6.11",
         "npm": "5.5"
     },
-    "dependencies": {
-    },
+    "dependencies": {},
     "devDependencies": {
         "eslint": "4.10.0",
         "eslint-config-standard": "10.2.1",
         "eslint-plugin-import": "2.8.0",
         "eslint-plugin-node": "5.2.1",
         "eslint-plugin-promise": "3.6.0",
-        "eslint-plugin-standard": "3.0.1"
+        "eslint-plugin-standard": "3.0.1",
+        "webpack": "3.8.1"
     }
 }
