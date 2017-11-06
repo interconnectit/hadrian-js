@@ -1,0 +1,8 @@
+.editorconfig
+.eslintrc
+.gitignore
+.npmignore
+.npmrc
+.travis.yml
+package-lock.json
+webpack.config.js
