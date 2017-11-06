@@ -1,7 +1,7 @@
-# Hadrian JS
+# Hadrian
 
-[![Build Status][ico-travis]][link-travis]
-[![Code Style][ico-standard-js]][link-standard-js]
+[![build status](https://img.shields.io/travis/interconnectit/hadrian-js.svg?style=flat-square)](https://travis-ci.org/interconnectit/hadrian-js)
+[![code style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat-square)](http://standardjs.com)
 
 ## Requirements
 
@@ -24,9 +24,3 @@ $ npm install
 $ npm run lint
 $ npm run test
 ```
-
-[ico-travis]: https://travis-ci.com/interconnectit/hadrian-js.svg?branch=master
-[ico-standard-js]: https://img.shields.io/badge/code%20style-standard-brightgreen.svg
-
-[link-travis]: https://travis-ci.com/interconnectit/hadrian-js
-[link-standard-js]: http://standardjs.com
