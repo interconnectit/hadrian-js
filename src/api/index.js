@@ -7,7 +7,6 @@
 'use strict'
 
 const axios = require('axios')
-const cookie = require('js-cookie')
 const config = require('../api').api
 
 const metrics = require('./metrics')
