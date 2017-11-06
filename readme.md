@@ -1,4 +1,4 @@
-# Hadrian JS
+# Hadrian
 
 [![build status](https://img.shields.io/travis/interconnectit/hadrian-js.svg?style=flat-square)](https://travis-ci.org/interconnectit/hadrian-js)
 [![code style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat-square)](http://standardjs.com)
