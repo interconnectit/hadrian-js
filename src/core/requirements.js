@@ -1,11 +1,11 @@
 'use strict'
 
 /**
- * Create a new requirements manager instance
+ * Create a new requirements instance
  *
  * @constructor
  */
-function RequirementsManager () {
+function Requirements () {
     this.requirements = []
 }
 
@@ -15,7 +15,7 @@ function RequirementsManager () {
  * @param {Object} condition
  * @param {Function} callback
  */
-RequirementsManager.prototype.on = function on (condition, callback) {
+Requirements.prototype.on = function on (condition, callback) {
     this.requirements.push({
         condition: condition,
         callback: callback
@@ -27,8 +27,8 @@ RequirementsManager.prototype.on = function on (condition, callback) {
  *
  * @param {Function} callback
  */
-RequirementsManager.prototype.forEach = function forEach (callback) {
+Requirements.prototype.forEach = function forEach (callback) {
     this.requirements.forEach(callback)
 }
 
-module.exports = RequirementsManager
+module.exports = Requirements
