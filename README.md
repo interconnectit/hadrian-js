@@ -58,7 +58,7 @@ If you discover any security related issues, please email support@interconnectit
 
 ## Credits
 
-- [interconnect/it](https://interconnectit.com/)
+- [interconnect/it](https://interconnectit.com)
 - [All Contributors](../../contributors)
 
 ## License
