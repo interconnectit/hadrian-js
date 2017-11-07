@@ -32,7 +32,7 @@ function Api (config) {
  * @return {Promise}
  */
 Api.prototype.evaluateMetrics = function evaluateMetrics (data) {
-    return axios({
+    return this.axios({
         method: 'post',
         url: 'metrics',
         data: data
