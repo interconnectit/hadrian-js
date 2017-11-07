@@ -7,18 +7,13 @@ This is where your description should go. Try and limit it to a paragraph or two
 
 ## Install
 
-### NPM
-
-Make sure all dependencies have been installed before moving on:
-
-* [Node](https://nodejs.org/en/) >= 6.11
-* [Npm](https://www.npmjs.com/get-npm) >= 5.5
+Via NPM
 
 ``` bash
 $ npm install --save @interconnectit/hadrian
 ```
 
-### CDN
+Via CDN
 
 ``` html
 <script src="//cdn.jsdelivr.net/npm/@interconnectit/hadrian/dist/hadrian.min.js"></script>
@@ -48,9 +43,12 @@ Hadrian.requirements
 ## Testing
 
 ``` bash
-$ npm run lint
 $ npm run test
 ```
+
+## Contributing
+
+Please see [CONTRIBUTING](CONTRIBUTING.md) and [CODE_OF_CONDUCT](CODE_OF_CONDUCT.md) for details.
 
 ## Security
 
