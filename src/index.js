@@ -6,10 +6,10 @@
 
 'use strict'
 
-const api = require('./api')
-const config = require('./config')
+var api = require('./api')
+var config = require('./config')
 
-const hadrian = {}
+var hadrian = {}
 
 hadrian.api = api
 hadrian.config = config

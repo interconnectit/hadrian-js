@@ -6,14 +6,16 @@
 
 'use strict'
 
-module.exports = (axios) => {
-    const api = {}
+module.exports = function metrics (axios) {
+    var api = {}
 
-    api.evaluate = (data) => axios({
-        method: 'post',
-        url: 'metrics',
-        data
-    })
+    api.evaluate = function evaluate (data) {
+        return axios({
+            method: 'post',
+            url: 'metrics',
+            data: data
+        })
+    }
 
     return api
 }
