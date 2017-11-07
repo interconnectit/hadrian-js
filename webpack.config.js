@@ -1,23 +1,27 @@
 'use strict'
 
-const path = require('path')
-const webpack = require('webpack')
+var path = require('path')
+var webpack = require('webpack')
 
-const config = []
+var config = []
 
 function generateConfig (filename) {
-    const config = {}
+    var isMinified = filename.indexOf('min') > -1
+
+    var config = {}
 
     config.entry = './src/index.js'
 
     config.output = {
         path: path.resolve(__dirname, 'dist'),
-        filename,
+        filename: filename,
         library: 'hadrian',
         libraryTarget: 'umd'
     }
 
-    config.devtool = 'source-map'
+    config.devtool = isMinified
+        ? false
+        : 'source-map'
 
     config.plugins = [
         new webpack.DefinePlugin({
@@ -25,7 +29,7 @@ function generateConfig (filename) {
         })
     ]
 
-    if (filename.includes('min')) {
+    if (isMinified) {
         config.plugins.push(
             new webpack.optimize.UglifyJsPlugin({
                 compressor: {
@@ -38,7 +42,7 @@ function generateConfig (filename) {
     return config
 }
 
-['hadrian.js', 'hadrian.min.js'].forEach((filename) => {
+['hadrian.js', 'hadrian.min.js'].forEach(function (filename) {
     config.push(generateConfig(filename))
 })
 
