@@ -1,5 +1,7 @@
 'use strict'
 
+const _forEach = require('lodash').forEach
+
 /**
  * Create a new requirements instance
  *
@@ -28,7 +30,7 @@ Requirements.prototype.on = function on (condition, callback) {
  * @param {Function} callback
  */
 Requirements.prototype.forEach = function forEach (callback) {
-    this.requirements.forEach(callback)
+    _forEach(this.requirements, callback)
 }
 
 module.exports = Requirements
