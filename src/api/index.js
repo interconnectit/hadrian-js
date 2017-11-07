@@ -6,20 +6,24 @@
 
 'use strict'
 
-const axios = require('axios')
-const config = require('../api').api
+var axios = require('axios')
+var config = require('../api').api
 
-const metrics = require('./metrics')
+var metrics = require('./metrics')
 
-const instance = axios.create({
+var instance = axios.create({
     baseURL: config.baseUrl,
     timeout: config.timeout
 })
 
 // TODO: interact with a storage
-instance.interceptors.request.use((config) => config)
+instance.interceptors.request.use(function (config) {
+    return config
+})
 
 // TODO: interact with a storage
-instance.interceptors.response.use((response) => response)
+instance.interceptors.response.use(function (response) {
+    return response
+})
 
 exports.metrics = metrics(instance)
