@@ -3,12 +3,12 @@
 var axios = require('axios')
 
 /**
- * Create a new api manager instance
+ * Create a new api instance
  *
  * @param {Object} config
  * @constructor
  */
-function ApiManager (config) {
+function Api (config) {
     this.axios = axios.create({
         baseURL: config.baseUrl,
         timeout: config.timeout
@@ -31,7 +31,7 @@ function ApiManager (config) {
  * @param {Object} data
  * @return {Promise}
  */
-ApiManager.prototype.evaluateMetrics = function evaluateMetrics (data) {
+Api.prototype.evaluateMetrics = function evaluateMetrics (data) {
     return axios({
         method: 'post',
         url: 'metrics',
@@ -39,4 +39,4 @@ ApiManager.prototype.evaluateMetrics = function evaluateMetrics (data) {
     })
 }
 
-module.exports = ApiManager
+module.exports = Api
