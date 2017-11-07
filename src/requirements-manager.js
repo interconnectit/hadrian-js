@@ -6,6 +6,11 @@
 
 'use strict'
 
+/**
+ * Create a new requirements manager instance
+ *
+ * @constructor
+ */
 function RequirementsManager () {
     this.requirements = []
 }
