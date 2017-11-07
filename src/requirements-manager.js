@@ -1,11 +1,10 @@
-/*!
- * hadrian
- * Copyright(c) 2017 interconnect/it
- * MIT Licensed
- */
-
 'use strict'
 
+/**
+ * Create a new requirements manager instance
+ *
+ * @constructor
+ */
 function RequirementsManager () {
     this.requirements = []
 }
