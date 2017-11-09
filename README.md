@@ -22,15 +22,7 @@ Via CDN
 ## Usage
 
 ``` js
-Hadrian.config
-    .site('your-site-uuid')
-    .payload({
-        post_id: 1,
-        post_title: 'Lorem ipsum dolor sit amet',
-        ...
-    })
-
-Hadrian.requirements
+hadrian('your-site-uuid')
     .on({user: {subscription: 'gold'}}, function () {
         $('.popup_subscription_gold').show()
     })
@@ -38,6 +30,11 @@ Hadrian.requirements
         $('.popup_subscription_silver').show()
     })
     ...
+    .evaluate({
+        post_id: 1,
+        post_title: 'Lorem ipsum dolor sit amet',
+        ...
+    })
 ```
 
 ## Testing
