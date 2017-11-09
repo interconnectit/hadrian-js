@@ -1,19 +1,23 @@
 'use strict'
 
 const Api = require('./api')
-const Requirements = require('./requirements')
 
 /**
  * Create a new hadrian instance
  *
+ * @param {string} site
  * @param {Object} config
  * @constructor
  */
-function Hadrian (config) {
+function Hadrian (site, config) {
+    this.site = site
     this.config = config
 
     this.api = new Api(config.api)
-    this.requirements = new Requirements()
+}
+
+Hadrian.prototype.evaluate = function evaluate (payload) {
+    this.api.evaluateMetrics(payload)
 }
 
 module.exports = Hadrian
