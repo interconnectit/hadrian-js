@@ -23,6 +23,21 @@ function generateConfig (filename) {
         ? false
         : 'source-map'
 
+    config.module = {
+        rules: [
+            {
+                test: /\.js$/,
+                exclude: /node_modules/,
+                use: {
+                    loader: 'babel-loader',
+                    options: {
+                        cacheDirectory: true
+                    }
+                }
+            }
+        ]
+    }
+
     config.plugins = [
         new webpack.DefinePlugin({
             'process.env.NODE_ENV': JSON.stringify('production')
