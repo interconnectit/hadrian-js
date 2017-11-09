@@ -1,11 +1,13 @@
-'use strict'
+import Hadrian from './core/hadrian'
 
-const _merge = require('lodash').merge
-const Hadrian = require('./core/hadrian')
-const defaults = require('./defaults')
-
-function bootstrap (site, config) {
-    return new Hadrian(site, _merge(defaults, config || {}))
+/**
+ * Create a new hadrian instance
+ *
+ * @param {String} siteUuid
+ * @return {Hadrian}
+ */
+function factory (siteUuid) {
+    return new Hadrian(siteUuid)
 }
 
-module.exports = bootstrap
+module.exports = factory
