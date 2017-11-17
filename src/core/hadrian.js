@@ -1,6 +1,6 @@
 import jsCookie from 'js-cookie'
 import axios from 'axios'
-import { each, isEqual } from 'lodash'
+import { each, isEqualWith } from 'lodash'
 
 /**
  * Create a new axios instance
@@ -50,12 +50,18 @@ function axiosResponseInterceptor (response) {
 }
 
 function evaluateMetricsResponse ({data}) {
-    const requirements = data.requirements
+    const {requirements} = data
     if (!requirements) return
+
+    const compareCustomizer = (objValue, othValue) => {
+        return othValue === '*'
+            ? true
+            : undefined
+    }
 
     each(this.requirements, ({condition, callback}) => {
         // todo: wildcard comparison
-        if (isEqual(requirements, condition)) {
+        if (isEqualWith(requirements, condition, compareCustomizer)) {
             callback()
         }
     })

@@ -4,23 +4,23 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>post example</title>
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
-
-    </div>
-
-    <script src="//code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-    <script src="../dist/hadrian.js"></script>
-    <script>
-        hadrian('d38aa9a6-558c-4f89-a816-1062e32620e5')
-            .on({user: {subscription: '*'}}, function () {
-                console.log('caught')
-            })
-            .evaluate({
-                post_id: 1
-            })
-    </script>
+<div class="container">
+    lol
+</div>
+<script src="../dist/hadrian.js"></script>
+<script>
+    hadrian('d38aa9a6-558c-4f89-a816-1062e32620e5')
+        .on({user: {subscription: 'silver'}}, function () {
+            console.log('caught silver')
+        })
+        .on({user: {subscription: '*'}}, function () {
+            console.log('caught *')
+        })
+        .evaluate({
+            post_id: 1
+        })
+</script>
 </body>
 </html>

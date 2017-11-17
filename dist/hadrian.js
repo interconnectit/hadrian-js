@@ -931,16 +931,20 @@ function axiosResponseInterceptor(response) {
 
 function evaluateMetricsResponse(_ref) {
     var data = _ref.data;
-
     var requirements = data.requirements;
+
     if (!requirements) return;
+
+    var compareCustomizer = function compareCustomizer(objValue, othValue) {
+        return othValue === '*' ? true : undefined;
+    };
 
     (0, _lodash.each)(this.requirements, function (_ref2) {
         var condition = _ref2.condition,
             callback = _ref2.callback;
 
         // todo: wildcard comparison
-        if ((0, _lodash.isEqual)(requirements, condition)) {
+        if ((0, _lodash.isEqualWith)(requirements, condition, compareCustomizer)) {
             callback();
         }
     });
