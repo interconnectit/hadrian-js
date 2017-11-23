@@ -9,7 +9,7 @@ import { each, isEqualWith } from 'lodash'
  */
 function createAxiosInstance () {
     const instance = axios.create({
-        baseURL: 'https://hadrian-api-lumen.herokuapp.com',
+        baseURL: 'https://api.hadrianpaywall.com',
         timeout: 2000
     })
 

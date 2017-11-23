@@ -889,7 +889,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  */
 function createAxiosInstance() {
     var instance = _axios2.default.create({
-        baseURL: 'https://hadrian-api-lumen.herokuapp.com',
+        baseURL: 'https://api.hadrianpaywall.com',
         timeout: 2000
     });
 
