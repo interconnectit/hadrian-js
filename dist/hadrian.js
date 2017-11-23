@@ -943,9 +943,8 @@ function evaluateMetricsResponse(_ref) {
         var condition = _ref2.condition,
             callback = _ref2.callback;
 
-        // todo: wildcard comparison
         if ((0, _lodash.isEqualWith)(requirements, condition, compareCustomizer)) {
-            callback();
+            callback(data);
         }
     });
 }

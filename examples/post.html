@@ -12,11 +12,11 @@
 <script src="../dist/hadrian.js"></script>
 <script>
     hadrian('d38aa9a6-558c-4f89-a816-1062e32620e5')
-        .on({user: {subscription: 'silver'}}, function () {
-            console.log('caught silver')
+        .on({user: {subscription: 'silver'}}, function (data) {
+            console.log(data)
         })
-        .on({user: {subscription: '*'}}, function () {
-            console.log('caught *')
+        .on({user: {subscription: '*'}}, function (data) {
+            console.log(data)
         })
         .evaluate({
             post_id: 1

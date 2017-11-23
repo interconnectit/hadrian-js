@@ -60,9 +60,8 @@ function evaluateMetricsResponse ({data}) {
     }
 
     each(this.requirements, ({condition, callback}) => {
-        // todo: wildcard comparison
         if (isEqualWith(requirements, condition, compareCustomizer)) {
-            callback()
+            callback(data)
         }
     })
 }
