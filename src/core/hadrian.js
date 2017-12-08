@@ -40,6 +40,8 @@ function axiosRequestInterceptor(config) {
         config.headers['x-subscriber-uuid'] = this.subscriberUuid
     }
 
+    console.log(config)
+
     return config
 }
 
