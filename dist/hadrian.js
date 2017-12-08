@@ -907,9 +907,13 @@ function createAxiosInstance() {
  * @return {AxiosRequestConfig}
  */
 function axiosRequestInterceptor(config) {
-    config.headers['x-site-uuid'] = this.siteUuid;
-    config.headers['x-session-uuid'] = this.sessionUuid;
-    config.headers['x-subscriber-uuid'] = this.subscriberUuid;
+    config.headers['x-site-uuid'] = this.siteUuid0;
+    if (this.sessionUuid) {
+        config.headers['x-session-uuid'] = this.sessionUuid;
+    }
+    if (this.subscriberUuid) {
+        config.headers['x-subscriber-uuid'] = this.subscriberUuid;
+    }
 
     return config;
 }

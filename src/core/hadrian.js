@@ -1,13 +1,13 @@
 import jsCookie from 'js-cookie'
 import axios from 'axios'
-import { each, isEqualWith } from 'lodash'
+import {each, isEqualWith} from 'lodash'
 
 /**
  * Create a new axios instance
  *
  * @return {AxiosInstance}
  */
-function createAxiosInstance () {
+function createAxiosInstance() {
     const instance = axios.create({
         baseURL: 'https://api.hadrianpaywall.com',
         timeout: 2000
@@ -26,10 +26,14 @@ function createAxiosInstance () {
  * @param {AxiosRequestConfig} config
  * @return {AxiosRequestConfig}
  */
-function axiosRequestInterceptor (config) {
-    config.headers['x-site-uuid'] = this.siteUuid
-    config.headers['x-session-uuid'] = this.sessionUuid
-    config.headers['x-subscriber-uuid'] = this.subscriberUuid
+function axiosRequestInterceptor(config) {
+    config.headers['x-site-uuid'] = this.siteUuid0
+    if (this.sessionUuid) {
+        config.headers['x-session-uuid'] = this.sessionUuid
+    }
+    if (this.subscriberUuid) {
+        config.headers['x-subscriber-uuid'] = this.subscriberUuid
+    }
 
     return config
 }
@@ -40,7 +44,7 @@ function axiosRequestInterceptor (config) {
  * @param {AxiosResponse} response
  * @return {AxiosResponse}
  */
-function axiosResponseInterceptor (response) {
+function axiosResponseInterceptor(response) {
     const data = response.data
 
     data.session && jsCookie.set('hadrian-session-uuid', data.session.uuid)
@@ -49,7 +53,7 @@ function axiosResponseInterceptor (response) {
     return response
 }
 
-function evaluateMetricsResponse ({data}) {
+function evaluateMetricsResponse({data}) {
     const {requirements} = data
     if (!requirements) return
 
@@ -72,7 +76,7 @@ class Hadrian {
      *
      * @param {String} siteUuid
      */
-    constructor (siteUuid) {
+    constructor(siteUuid) {
         // define uuids
         this.siteUuid = siteUuid
         this.sessionUuid = jsCookie.get('hadrian-session-uuid')
@@ -90,7 +94,7 @@ class Hadrian {
      * @param {Function} callback
      * @return {Hadrian}
      */
-    on (condition, callback) {
+    on(condition, callback) {
         this.requirements.push({
             condition,
             callback
@@ -99,7 +103,7 @@ class Hadrian {
         return this
     }
 
-    evaluate (payload) {
+    evaluate(payload) {
         this.axios.post('metrics', payload)
             .then(evaluateMetricsResponse.bind(this))
     }
