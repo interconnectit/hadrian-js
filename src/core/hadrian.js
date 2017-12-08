@@ -27,6 +27,11 @@ function createAxiosInstance() {
  * @return {AxiosRequestConfig}
  */
 function axiosRequestInterceptor(config) {
+
+    console.log(this.siteUuid)
+    console.log(this.sessionUuid)
+    console.log(this.subscriberUuid)
+
     config.headers['x-site-uuid'] = this.siteUuid
     if (this.sessionUuid) {
         config.headers['x-session-uuid'] = this.sessionUuid
