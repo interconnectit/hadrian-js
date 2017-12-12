@@ -111,7 +111,7 @@ class Hadrian {
     }
 
     evaluate (payload) {
-        this.axios.post('metrics', payload)
+        this.axios.post('metrics', {payload: payload})
             .then(evaluateMetricsResponse.bind(this))
     }
 }
