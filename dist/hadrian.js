@@ -7,7 +7,7 @@
 		exports["hadrian"] = factory();
 	else
 		root["hadrian"] = factory();
-})(this, function() {
+})(typeof self !== 'undefined' ? self : this, function() {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -287,7 +287,7 @@ function forEach(obj, fn) {
   }
 
   // Force an array if not already something iterable
-  if (typeof obj !== 'object' && !isArray(obj)) {
+  if (typeof obj !== 'object') {
     /*eslint no-param-reassign:0*/
     obj = [obj];
   }
@@ -606,8 +606,7 @@ module.exports = function xhrAdapter(config) {
     // For IE 8/9 CORS support
     // Only supports POST and GET calls and doesn't returns the response headers.
     // DON'T do this for testing b/c XMLHttpRequest is mocked, not XDomainRequest.
-    if (!window.XMLHttpRequest &&
-        "production" !== 'test' &&
+    if ("production" !== 'test' &&
         typeof window !== 'undefined' &&
         window.XDomainRequest && !('withCredentials' in request) &&
         !isURLSameOrigin(config.url)) {
@@ -908,9 +907,11 @@ function createAxiosInstance() {
  */
 function axiosRequestInterceptor(config) {
     config.headers['x-site-uuid'] = this.siteUuid;
+
     if (this.sessionUuid) {
         config.headers['x-session-uuid'] = this.sessionUuid;
     }
+
     if (this.subscriberUuid) {
         config.headers['x-subscriber-uuid'] = this.subscriberUuid;
     }
@@ -927,8 +928,13 @@ function axiosRequestInterceptor(config) {
 function axiosResponseInterceptor(response) {
     var data = response.data;
 
-    data.session && _jsCookie2.default.set('hadrian-session-uuid', data.session.uuid);
-    data.subscriber && _jsCookie2.default.set('hadrian-subscriber-uuid', data.subscriber.uuid);
+    if (data.session) {
+        _jsCookie2.default.set('hadrian-session-uuid', data.session.uuid);
+    }
+
+    if (data.subscriber) {
+        _jsCookie2.default.set('hadrian-subscriber-uuid', data.subscriber.uuid);
+    }
 
     return response;
 }
@@ -994,7 +1000,7 @@ var Hadrian = function () {
     }, {
         key: 'evaluate',
         value: function evaluate(payload) {
-            this.axios.post('metrics', payload).then(evaluateMetricsResponse.bind(this));
+            this.axios.post('metrics', { payload: payload }).then(evaluateMetricsResponse.bind(this));
         }
     }]);
     return Hadrian;
@@ -19585,9 +19591,9 @@ module.exports = function spread(callback) {
 
     // Define as an anonymous module so, through path mapping, it can be
     // referenced as the "underscore" module.
-    !(__WEBPACK_AMD_DEFINE_RESULT__ = function() {
+    !(__WEBPACK_AMD_DEFINE_RESULT__ = (function() {
       return _;
-    }.call(exports, __webpack_require__, exports, module),
+    }).call(exports, __webpack_require__, exports, module),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
   }
   // Check for `exports` after `define` in case a build optimizer adds it.
