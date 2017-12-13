@@ -947,6 +947,9 @@ function axiosResponseInterceptor(response) {
 function evaluateMetricsResponse(_ref) {
     var data = _ref.data;
 
+    var responseData = data.data;
+    if (!responseData.length) return;
+
     var compareCustomizer = function compareCustomizer(objValue, othValue) {
         return othValue === '*' ? true : undefined;
     };
@@ -955,11 +958,8 @@ function evaluateMetricsResponse(_ref) {
         var response = _ref2.response,
             callback = _ref2.callback;
 
-        console.log('response', response);
-        console.log('data', data);
-
-        if ((0, _lodash.isEqualWith)(data, response, compareCustomizer)) {
-            callback(data);
+        if ((0, _lodash.isEqualWith)(responseData, response, compareCustomizer)) {
+            callback(responseData);
         }
     });
 }

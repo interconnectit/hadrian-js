@@ -63,6 +63,9 @@ function axiosResponseInterceptor (response) {
 }
 
 function evaluateMetricsResponse ({data}) {
+    const responseData = data.data
+    if (!responseData.length) return
+
     const compareCustomizer = (objValue, othValue) => {
         return othValue === '*'
             ? true
@@ -70,11 +73,8 @@ function evaluateMetricsResponse ({data}) {
     }
 
     each(this.triggers, ({response, callback}) => {
-        console.log('response', response)
-        console.log('data', data)
-
-        if (isEqualWith(data, response, compareCustomizer)) {
-            callback(data)
+        if (isEqualWith(responseData, response, compareCustomizer)) {
+            callback(responseData)
         }
     })
 }
