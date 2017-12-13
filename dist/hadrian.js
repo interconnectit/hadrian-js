@@ -892,10 +892,10 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function createAxiosInstance() {
     var axiosOptions = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
-    var instance = _axios2.default.create((0, _lodash.merge)(axiosOptions, {
+    var instance = _axios2.default.create((0, _lodash.merge)({
         baseURL: 'https://api.hadrianpaywall.com',
         timeout: 2000
-    }));
+    }, axiosOptions));
 
     // define the interceptors
     instance.interceptors.request.use(axiosRequestInterceptor.bind(this));
