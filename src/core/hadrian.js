@@ -70,6 +70,9 @@ function evaluateMetricsResponse ({data}) {
     }
 
     each(this.triggers, ({response, callback}) => {
+        console.log('response', response)
+        console.log('data', data)
+
         if (isEqualWith(data, response, compareCustomizer)) {
             callback(data)
         }

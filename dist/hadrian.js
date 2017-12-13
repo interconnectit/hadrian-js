@@ -955,6 +955,9 @@ function evaluateMetricsResponse(_ref) {
         var response = _ref2.response,
             callback = _ref2.callback;
 
+        console.log('response', response);
+        console.log('data', data);
+
         if ((0, _lodash.isEqualWith)(data, response, compareCustomizer)) {
             callback(data);
         }
