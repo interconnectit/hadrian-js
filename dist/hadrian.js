@@ -887,15 +887,15 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 /**
  * Create a new axios instance
  *
+ * @param {Object} options
+ *
  * @return {AxiosInstance}
  */
-function createAxiosInstance() {
-    var axiosOptions = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-
-    var instance = _axios2.default.create((0, _lodash.merge)({
+function createAxiosInstance(options) {
+    var instance = _axios2.default.create((0, _lodash.defaults)(options, {
         baseURL: 'https://api.hadrianpaywall.com',
         timeout: 2000
-    }, axiosOptions));
+    }));
 
     // define the interceptors
     instance.interceptors.request.use(axiosRequestInterceptor.bind(this));
@@ -971,8 +971,7 @@ var Hadrian = function () {
      * @param {String} siteUuid
      * @param {Object} axiosOptions
      */
-    function Hadrian(siteUuid) {
-        var axiosOptions = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+    function Hadrian(siteUuid, axiosOptions) {
         (0, _classCallCheck3.default)(this, Hadrian);
 
         // define uuids
