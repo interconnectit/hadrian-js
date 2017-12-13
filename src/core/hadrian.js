@@ -1,17 +1,17 @@
 import jsCookie from 'js-cookie'
 import axios from 'axios'
-import { each, isEqualWith } from 'lodash'
+import { merge, each, isEqualWith } from 'lodash'
 
 /**
  * Create a new axios instance
  *
  * @return {AxiosInstance}
  */
-function createAxiosInstance () {
-    const instance = axios.create({
+function createAxiosInstance (axiosOptions = {}) {
+    const instance = axios.create(merge(axiosOptions, {
         baseURL: 'https://api.hadrianpaywall.com',
         timeout: 2000
-    })
+    }))
 
     // define the interceptors
     instance.interceptors.request.use(axiosRequestInterceptor.bind(this))
@@ -82,8 +82,9 @@ class Hadrian {
      * Create a new hadrian instance
      *
      * @param {String} siteUuid
+     * @param {Object} axiosOptions
      */
-    constructor (siteUuid) {
+    constructor (siteUuid, axiosOptions = {}) {
         // define uuids
         this.siteUuid = siteUuid
         this.sessionUuid = jsCookie.get('hadrian-session-uuid')
@@ -91,7 +92,7 @@ class Hadrian {
 
         this.requirements = []
 
-        this.axios = createAxiosInstance.call(this)
+        this.axios = createAxiosInstance.call(this, axiosOptions)
     }
 
     /**
