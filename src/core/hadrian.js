@@ -8,10 +8,10 @@ import { merge, each, isEqualWith } from 'lodash'
  * @return {AxiosInstance}
  */
 function createAxiosInstance (axiosOptions = {}) {
-    const instance = axios.create(merge(axiosOptions, {
+    const instance = axios.create(merge({
         baseURL: 'https://api.hadrianpaywall.com',
         timeout: 2000
-    }))
+    }, axiosOptions))
 
     // define the interceptors
     instance.interceptors.request.use(axiosRequestInterceptor.bind(this))
