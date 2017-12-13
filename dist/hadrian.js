@@ -948,7 +948,7 @@ function evaluateMetricsResponse(_ref) {
     var data = _ref.data;
 
     var responseData = data.data;
-    if (!responseData.length) return;
+    if (!responseData) return;
 
     var compareCustomizer = function compareCustomizer(objValue, othValue) {
         return othValue === '*' ? true : undefined;
@@ -957,6 +957,10 @@ function evaluateMetricsResponse(_ref) {
     (0, _lodash.each)(this.triggers, function (_ref2) {
         var response = _ref2.response,
             callback = _ref2.callback;
+
+        console.log('responseData', responseData);
+        console.log('response', response);
+        console.log('condition', (0, _lodash.isEqualWith)(responseData, response, compareCustomizer));
 
         if ((0, _lodash.isEqualWith)(responseData, response, compareCustomizer)) {
             callback(responseData);
