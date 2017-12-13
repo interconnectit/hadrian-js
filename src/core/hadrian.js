@@ -63,17 +63,14 @@ function axiosResponseInterceptor (response) {
 }
 
 function evaluateMetricsResponse ({data}) {
-    const {requirements} = data
-    if (!requirements) return
-
     const compareCustomizer = (objValue, othValue) => {
         return othValue === '*'
             ? true
             : undefined
     }
 
-    each(this.requirements, ({condition, callback}) => {
-        if (isEqualWith(requirements, condition, compareCustomizer)) {
+    each(this.triggers, ({response, callback}) => {
+        if (isEqualWith(data, response, compareCustomizer)) {
             callback(data)
         }
     })
@@ -92,21 +89,21 @@ class Hadrian {
         this.sessionUuid = jsCookie.get('hadrian-session-uuid')
         this.subscriberUuid = jsCookie.get('hadrian-subscriber-uuid')
 
-        this.requirements = []
+        this.triggers = []
 
         this.axios = createAxiosInstance.call(this, axiosOptions)
     }
 
     /**
-     * Add a new requirement
+     * Add a new response trigger
      *
-     * @param {Object} condition
+     * @param {Object} response
      * @param {Function} callback
      * @return {Hadrian}
      */
-    on (condition, callback) {
-        this.requirements.push({
-            condition,
+    on (response, callback) {
+        this.triggers.push({
+            response,
             callback
         })
 
@@ -114,7 +111,8 @@ class Hadrian {
     }
 
     evaluate (payload) {
-        this.axios.post('metrics', {payload: payload})
+        this.axios
+            .post('metrics', {payload})
             .then(evaluateMetricsResponse.bind(this))
     }
 }
