@@ -946,19 +946,16 @@ function axiosResponseInterceptor(response) {
 
 function evaluateMetricsResponse(_ref) {
     var data = _ref.data;
-    var requirements = data.requirements;
-
-    if (!requirements) return;
 
     var compareCustomizer = function compareCustomizer(objValue, othValue) {
         return othValue === '*' ? true : undefined;
     };
 
-    (0, _lodash.each)(this.requirements, function (_ref2) {
-        var condition = _ref2.condition,
+    (0, _lodash.each)(this.triggers, function (_ref2) {
+        var response = _ref2.response,
             callback = _ref2.callback;
 
-        if ((0, _lodash.isEqualWith)(requirements, condition, compareCustomizer)) {
+        if ((0, _lodash.isEqualWith)(data, response, compareCustomizer)) {
             callback(data);
         }
     });
@@ -979,15 +976,15 @@ var Hadrian = function () {
         this.sessionUuid = _jsCookie2.default.get('hadrian-session-uuid');
         this.subscriberUuid = _jsCookie2.default.get('hadrian-subscriber-uuid');
 
-        this.requirements = [];
+        this.triggers = [];
 
         this.axios = createAxiosInstance.call(this, axiosOptions);
     }
 
     /**
-     * Add a new requirement
+     * Add a new response trigger
      *
-     * @param {Object} condition
+     * @param {Object} response
      * @param {Function} callback
      * @return {Hadrian}
      */
@@ -995,9 +992,9 @@ var Hadrian = function () {
 
     (0, _createClass3.default)(Hadrian, [{
         key: 'on',
-        value: function on(condition, callback) {
-            this.requirements.push({
-                condition: condition,
+        value: function on(response, callback) {
+            this.triggers.push({
+                response: response,
                 callback: callback
             });
 
