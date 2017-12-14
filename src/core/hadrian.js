@@ -63,8 +63,7 @@ function axiosResponseInterceptor (response) {
 }
 
 function evaluateMetricsResponse ({data}) {
-    const responseData = data.data
-    if (!responseData) return
+    if (!data.data.trigger) return
 
     const compareCustomizer = (objValue, othValue) => {
         return othValue === '*'
@@ -72,9 +71,9 @@ function evaluateMetricsResponse ({data}) {
             : undefined
     }
 
-    each(this.triggers, ({response, callback}) => {
-        if (isEqualWith(responseData, response, compareCustomizer)) {
-            callback(responseData)
+    each(this.triggers, ({condition, callback}) => {
+        if (isEqualWith(data.data.trigger, condition, compareCustomizer)) {
+            callback(data.data)
         }
     })
 }
@@ -100,13 +99,13 @@ class Hadrian {
     /**
      * Add a new response trigger
      *
-     * @param {Object} response
+     * @param {Object} trigger
      * @param {Function} callback
      * @return {Hadrian}
      */
-    on (response, callback) {
+    on (condition, callback) {
         this.triggers.push({
-            response,
+            condition,
             callback
         })
 
