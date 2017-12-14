@@ -947,19 +947,18 @@ function axiosResponseInterceptor(response) {
 function evaluateMetricsResponse(_ref) {
     var data = _ref.data;
 
-    var responseData = data.data;
-    if (!responseData) return;
+    if (!data.data.trigger) return;
 
     var compareCustomizer = function compareCustomizer(objValue, othValue) {
         return othValue === '*' ? true : undefined;
     };
 
     (0, _lodash.each)(this.triggers, function (_ref2) {
-        var response = _ref2.response,
+        var condition = _ref2.condition,
             callback = _ref2.callback;
 
-        if ((0, _lodash.isEqualWith)(responseData, response, compareCustomizer)) {
-            callback(responseData);
+        if ((0, _lodash.isEqualWith)(data.data.trigger, condition, compareCustomizer)) {
+            callback(data.data);
         }
     });
 }
@@ -987,7 +986,7 @@ var Hadrian = function () {
     /**
      * Add a new response trigger
      *
-     * @param {Object} response
+     * @param {Object} trigger
      * @param {Function} callback
      * @return {Hadrian}
      */
@@ -995,9 +994,9 @@ var Hadrian = function () {
 
     (0, _createClass3.default)(Hadrian, [{
         key: 'on',
-        value: function on(response, callback) {
+        value: function on(condition, callback) {
             this.triggers.push({
-                response: response,
+                condition: condition,
                 callback: callback
             });
 
