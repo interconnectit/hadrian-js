@@ -841,14 +841,11 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 /**
  * Create a new hadrian instance
  *
- * @param {String} siteUuid
- * @param {String} axiosOptions
+ * @param {String} baseUrl
  * @return {Hadrian}
  */
-function factory(siteUuid) {
-  var axiosOptions = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-
-  return new _hadrian2.default(siteUuid, axiosOptions);
+function factory(baseUrl) {
+  return new _hadrian2.default(baseUrl);
 }
 
 module.exports = factory;
@@ -980,7 +977,7 @@ var Hadrian = function () {
                 this.axios = createAxiosInstance.call(this);
             } catch (e) {
                 this.axios = null;
-                console.log(e.message, e.name);
+                console.log(e.name + ': ' + e.message);
             }
         }
 
@@ -1005,7 +1002,7 @@ var Hadrian = function () {
     }, {
         key: 'evaluate',
         value: function evaluate(payload) {
-            if (!this.axios) return;
+            if (!this.axios) throw new Error('Axios instance is not correctly setup');
 
             this.axios.post('metrics', { payload: payload }).then(evaluateMetricsResponse.bind(this));
         }

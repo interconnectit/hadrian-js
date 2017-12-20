@@ -91,7 +91,7 @@ class Hadrian {
             this.axios = createAxiosInstance.call(this)
         } catch (e) {
             this.axios = null
-            console.log(e.message, e.name)
+            console.log(e.name + ': ' + e.message)
         }
     }
 
@@ -112,7 +112,7 @@ class Hadrian {
     }
 
     evaluate (payload) {
-        if (!this.axios) return
+        if (!this.axios) throw new Error('Axios instance is not correctly setup')
 
         this.axios
             .post('metrics', {payload})
