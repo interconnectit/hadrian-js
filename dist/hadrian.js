@@ -887,15 +887,13 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 /**
  * Create a new axios instance
  *
- * @param {Object} options
- *
  * @return {AxiosInstance}
  */
-function createAxiosInstance(options) {
-    var instance = _axios2.default.create((0, _lodash.defaults)(options, {
-        baseURL: 'https://api.hadrianpaywall.com',
+function createAxiosInstance() {
+    var instance = _axios2.default.create({
+        baseURL: this.baseUrl,
         timeout: 2000
-    }));
+    });
 
     // define the interceptors
     instance.interceptors.request.use(axiosRequestInterceptor.bind(this));
@@ -911,14 +909,9 @@ function createAxiosInstance(options) {
  * @return {AxiosRequestConfig}
  */
 function axiosRequestInterceptor(config) {
-    config.headers['x-site-uuid'] = this.siteUuid;
-
+    // add session to the headers
     if (this.sessionUuid) {
         config.headers['x-session-uuid'] = this.sessionUuid;
-    }
-
-    if (this.subscriberUuid) {
-        config.headers['x-subscriber-uuid'] = this.subscriberUuid;
     }
 
     return config;
@@ -935,10 +928,6 @@ function axiosResponseInterceptor(response) {
 
     if (data.session) {
         _jsCookie2.default.set('hadrian-session-uuid', data.session.uuid);
-    }
-
-    if (data.subscriber) {
-        _jsCookie2.default.set('hadrian-subscriber-uuid', data.subscriber.uuid);
     }
 
     return response;
@@ -967,26 +956,23 @@ var Hadrian = function () {
     /**
      * Create a new hadrian instance
      *
-     * @param {String} siteUuid
-     * @param {Object} axiosOptions
+     * @param {String} baseUrl
      */
-    function Hadrian(siteUuid, axiosOptions) {
+    function Hadrian(baseUrl) {
         (0, _classCallCheck3.default)(this, Hadrian);
 
-        // define uuids
-        this.siteUuid = siteUuid;
+        this.baseUrl = baseUrl;
         this.sessionUuid = _jsCookie2.default.get('hadrian-session-uuid');
-        this.subscriberUuid = _jsCookie2.default.get('hadrian-subscriber-uuid');
 
         this.triggers = [];
 
-        this.axios = createAxiosInstance.call(this, axiosOptions);
+        this.axios = createAxiosInstance.call(this);
     }
 
     /**
      * Add a new response trigger
      *
-     * @param {Object} trigger
+     * @param {Object} condition
      * @param {Function} callback
      * @return {Hadrian}
      */

@@ -1,19 +1,17 @@
 import jsCookie from 'js-cookie'
 import axios from 'axios'
-import { defaults, each, isEqualWith } from 'lodash'
+import { each, isEqualWith } from 'lodash'
 
 /**
  * Create a new axios instance
  *
- * @param {Object} options
- *
  * @return {AxiosInstance}
  */
-function createAxiosInstance (options) {
-    const instance = axios.create(defaults(options, {
-        baseURL: 'https://api.hadrianpaywall.com',
+function createAxiosInstance () {
+    const instance = axios.create({
+        baseURL: this.baseUrl,
         timeout: 2000
-    }))
+    })
 
     // define the interceptors
     instance.interceptors.request.use(axiosRequestInterceptor.bind(this))
@@ -29,14 +27,9 @@ function createAxiosInstance (options) {
  * @return {AxiosRequestConfig}
  */
 function axiosRequestInterceptor (config) {
-    config.headers['x-site-uuid'] = this.siteUuid
-
+    // add session to the headers
     if (this.sessionUuid) {
         config.headers['x-session-uuid'] = this.sessionUuid
-    }
-
-    if (this.subscriberUuid) {
-        config.headers['x-subscriber-uuid'] = this.subscriberUuid
     }
 
     return config
@@ -53,10 +46,6 @@ function axiosResponseInterceptor (response) {
 
     if (data.session) {
         jsCookie.set('hadrian-session-uuid', data.session.uuid)
-    }
-
-    if (data.subscriber) {
-        jsCookie.set('hadrian-subscriber-uuid', data.subscriber.uuid)
     }
 
     return response
@@ -82,24 +71,21 @@ class Hadrian {
     /**
      * Create a new hadrian instance
      *
-     * @param {String} siteUuid
-     * @param {Object} axiosOptions
+     * @param {String} baseUrl
      */
-    constructor (siteUuid, axiosOptions) {
-        // define uuids
-        this.siteUuid = siteUuid
+    constructor (baseUrl) {
+        this.baseUrl = baseUrl
         this.sessionUuid = jsCookie.get('hadrian-session-uuid')
-        this.subscriberUuid = jsCookie.get('hadrian-subscriber-uuid')
 
         this.triggers = []
 
-        this.axios = createAxiosInstance.call(this, axiosOptions)
+        this.axios = createAxiosInstance.call(this)
     }
 
     /**
      * Add a new response trigger
      *
-     * @param {Object} trigger
+     * @param {Object} condition
      * @param {Function} callback
      * @return {Hadrian}
      */
