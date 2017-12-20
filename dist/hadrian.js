@@ -890,6 +890,10 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * @return {AxiosInstance}
  */
 function createAxiosInstance() {
+    if (!this.baseUrl) {
+        throw new Error('Missing Hadrian BaseUrl');
+    }
+
     var instance = _axios2.default.create({
         baseURL: this.baseUrl,
         timeout: 2000
@@ -966,19 +970,29 @@ var Hadrian = function () {
 
         this.triggers = [];
 
-        this.axios = createAxiosInstance.call(this);
+        this.setupAxios();
     }
 
-    /**
-     * Add a new response trigger
-     *
-     * @param {Object} condition
-     * @param {Function} callback
-     * @return {Hadrian}
-     */
-
-
     (0, _createClass3.default)(Hadrian, [{
+        key: 'setupAxios',
+        value: function setupAxios() {
+            try {
+                this.axios = createAxiosInstance.call(this);
+            } catch (e) {
+                this.axios = null;
+                console.log(e.message, e.name);
+            }
+        }
+
+        /**
+         * Add a new response trigger
+         *
+         * @param {Object} condition
+         * @param {Function} callback
+         * @return {Hadrian}
+         */
+
+    }, {
         key: 'on',
         value: function on(condition, callback) {
             this.triggers.push({
@@ -991,6 +1005,8 @@ var Hadrian = function () {
     }, {
         key: 'evaluate',
         value: function evaluate(payload) {
+            if (!this.axios) return;
+
             this.axios.post('metrics', { payload: payload }).then(evaluateMetricsResponse.bind(this));
         }
     }]);

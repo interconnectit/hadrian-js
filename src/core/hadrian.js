@@ -8,6 +8,10 @@ import { each, isEqualWith } from 'lodash'
  * @return {AxiosInstance}
  */
 function createAxiosInstance () {
+    if (!this.baseUrl) {
+        throw new Error('Missing Hadrian BaseUrl')
+    }
+
     const instance = axios.create({
         baseURL: this.baseUrl,
         timeout: 2000
@@ -79,7 +83,16 @@ class Hadrian {
 
         this.triggers = []
 
-        this.axios = createAxiosInstance.call(this)
+        this.setupAxios()
+    }
+
+    setupAxios () {
+        try {
+            this.axios = createAxiosInstance.call(this)
+        } catch (e) {
+            this.axios = null
+            console.log(e.message, e.name)
+        }
     }
 
     /**
@@ -99,6 +112,8 @@ class Hadrian {
     }
 
     evaluate (payload) {
+        if (!this.axios) return
+
         this.axios
             .post('metrics', {payload})
             .then(evaluateMetricsResponse.bind(this))
