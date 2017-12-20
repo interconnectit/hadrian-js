@@ -3,6 +3,6 @@ import Hadrian from '../src/core/hadrian'
 
 describe('factory', () => {
     it('return new Hadrian instance', () => {
-        expect(factory()).toBeInstanceOf(Hadrian)
+        expect(factory('https://test.com')).toBeInstanceOf(Hadrian)
     })
 })
