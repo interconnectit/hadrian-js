@@ -7,13 +7,13 @@ import { each, isEqualWith } from 'lodash'
  *
  * @return {AxiosInstance}
  */
-function createAxiosInstance () {
-    if (!this.baseUrl) {
-        throw new Error('Missing Hadrian BaseUrl')
+function createAxiosInstance (baseUrl) {
+    if (!baseUrl) {
+        throw new Error('Missing the base url')
     }
 
     const instance = axios.create({
-        baseURL: this.baseUrl,
+        baseURL: baseUrl,
         timeout: 2000
     })
 
@@ -31,9 +31,9 @@ function createAxiosInstance () {
  * @return {AxiosRequestConfig}
  */
 function axiosRequestInterceptor (config) {
-    // add session to the headers
-    if (this.sessionUuid) {
-        config.headers['x-session-uuid'] = this.sessionUuid
+    // eventually add session to the headers
+    if (jsCookie.get('hadrian-session-uuid')) {
+        config.headers['x-session-uuid'] = jsCookie.get('hadrian-session-uuid')
     }
 
     return config
@@ -78,21 +78,9 @@ class Hadrian {
      * @param {String} baseUrl
      */
     constructor (baseUrl) {
-        this.baseUrl = baseUrl
-        this.sessionUuid = jsCookie.get('hadrian-session-uuid')
-
         this.triggers = []
 
-        this.setupAxios()
-    }
-
-    setupAxios () {
-        try {
-            this.axios = createAxiosInstance.call(this)
-        } catch (e) {
-            this.axios = null
-            console.log(e.name + ': ' + e.message)
-        }
+        this.axios = createAxiosInstance.call(this, baseUrl)
     }
 
     /**
@@ -112,8 +100,6 @@ class Hadrian {
     }
 
     evaluate (payload) {
-        if (!this.axios) throw new Error('Axios instance is not correctly setup')
-
         this.axios
             .post('metrics', {payload})
             .then(evaluateMetricsResponse.bind(this))

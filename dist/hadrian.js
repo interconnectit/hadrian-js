@@ -886,13 +886,13 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  *
  * @return {AxiosInstance}
  */
-function createAxiosInstance() {
-    if (!this.baseUrl) {
-        throw new Error('Missing Hadrian BaseUrl');
+function createAxiosInstance(baseUrl) {
+    if (!baseUrl) {
+        throw new Error('Missing the base url');
     }
 
     var instance = _axios2.default.create({
-        baseURL: this.baseUrl,
+        baseURL: baseUrl,
         timeout: 2000
     });
 
@@ -910,9 +910,9 @@ function createAxiosInstance() {
  * @return {AxiosRequestConfig}
  */
 function axiosRequestInterceptor(config) {
-    // add session to the headers
-    if (this.sessionUuid) {
-        config.headers['x-session-uuid'] = this.sessionUuid;
+    // eventually add session to the headers
+    if (_jsCookie2.default.get('hadrian-session-uuid')) {
+        config.headers['x-session-uuid'] = _jsCookie2.default.get('hadrian-session-uuid');
     }
 
     return config;
@@ -962,34 +962,21 @@ var Hadrian = function () {
     function Hadrian(baseUrl) {
         (0, _classCallCheck3.default)(this, Hadrian);
 
-        this.baseUrl = baseUrl;
-        this.sessionUuid = _jsCookie2.default.get('hadrian-session-uuid');
-
         this.triggers = [];
 
-        this.setupAxios();
+        this.axios = createAxiosInstance.call(this, baseUrl);
     }
 
+    /**
+     * Add a new response trigger
+     *
+     * @param {Object} condition
+     * @param {Function} callback
+     * @return {Hadrian}
+     */
+
+
     (0, _createClass3.default)(Hadrian, [{
-        key: 'setupAxios',
-        value: function setupAxios() {
-            try {
-                this.axios = createAxiosInstance.call(this);
-            } catch (e) {
-                this.axios = null;
-                console.log(e.name + ': ' + e.message);
-            }
-        }
-
-        /**
-         * Add a new response trigger
-         *
-         * @param {Object} condition
-         * @param {Function} callback
-         * @return {Hadrian}
-         */
-
-    }, {
         key: 'on',
         value: function on(condition, callback) {
             this.triggers.push({
@@ -1002,8 +989,6 @@ var Hadrian = function () {
     }, {
         key: 'evaluate',
         value: function evaluate(payload) {
-            if (!this.axios) throw new Error('Axios instance is not correctly setup');
-
             this.axios.post('metrics', { payload: payload }).then(evaluateMetricsResponse.bind(this));
         }
     }]);
