@@ -900,7 +900,7 @@ function createAxiosInstance(options) {
 function evaluateMetricsResponse(_ref) {
     var data = _ref.data;
 
-    if (!data.data.evaluation) return;
+    if (!data.data.evaluation.trigger) return;
 
     var compareCustomizer = function compareCustomizer(objValue, othValue) {
         return othValue === '*' ? true : undefined;
@@ -910,7 +910,7 @@ function evaluateMetricsResponse(_ref) {
         var condition = _ref2.condition,
             callback = _ref2.callback;
 
-        if ((0, _lodash.isEqualWith)(data.data.evaluation, condition, compareCustomizer)) {
+        if ((0, _lodash.isEqualWith)(data.data.evaluation.trigger, condition, compareCustomizer)) {
             callback(data.data);
         }
     });

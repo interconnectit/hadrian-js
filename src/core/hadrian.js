@@ -19,7 +19,7 @@ function createAxiosInstance (options) {
 }
 
 function evaluateMetricsResponse ({data}) {
-    if (!data.data.evaluation) return
+    if (!data.data.evaluation.trigger) return
 
     const compareCustomizer = (objValue, othValue) => {
         return othValue === '*'
@@ -28,7 +28,7 @@ function evaluateMetricsResponse ({data}) {
     }
 
     each(this.triggers, ({condition, callback}) => {
-        if (isEqualWith(data.data.evaluation, condition, compareCustomizer)) {
+        if (isEqualWith(data.data.evaluation.trigger, condition, compareCustomizer)) {
             callback(data.data)
         }
     })
