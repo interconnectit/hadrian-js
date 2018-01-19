@@ -11,7 +11,8 @@ import { defaults, each, isEqualWith } from 'lodash'
 function createAxiosInstance (options) {
     const instance = axios.create(defaults(options, {
         baseURL: 'https://api.hadrianpaywall.com',
-        timeout: 2000
+        timeout: 2000,
+        withCredentials: true
     }))
 
     return instance
