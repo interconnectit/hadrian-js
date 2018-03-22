@@ -18,7 +18,12 @@ function createAxiosInstance (options) {
     return instance
 }
 
-function evaluateMetricsResponse ({data}) {
+/**
+ * Evaluate the metering response.
+ *
+ * @param {Object} data
+ */
+function evaluateMeteringResponse ({data}) {
     if (!data.data.evaluation.trigger) return
 
     const compareCustomizer = (objValue, othValue) => {
@@ -51,6 +56,7 @@ class Hadrian {
      *
      * @param {Object} condition
      * @param {Function} callback
+     *
      * @return {Hadrian}
      */
     on (condition, callback) {
@@ -65,7 +71,7 @@ class Hadrian {
     evaluate (payload) {
         this.axios
             .post('views', {payload})
-            .then(evaluateMetricsResponse.bind(this))
+            .then(evaluateMeteringResponse.bind(this))
     }
 }
 
