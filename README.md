@@ -16,13 +16,13 @@ $ npm install --save @interconnectit/hadrian
 Via CDN
 
 ``` html
-<script src="//cdn.jsdelivr.net/npm/@interconnectit/hadrian/dist/hadrian.min.js"></script>
+<script src="//unpkg.com/@interconnectit/hadrian/dist/hadrian.min.js"></script>
 ```
 
 ## Usage
 
 ``` js
-hadrian('your-site-uuid')
+hadrian()
     .on({user: {subscription: 'gold'}}, function () {
         $('.popup_subscription_gold').show()
     })
