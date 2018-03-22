@@ -3,12 +3,11 @@ import Hadrian from './core/hadrian'
 /**
  * Create a new hadrian instance
  *
- * @param {String} siteUuid
  * @param {String} axiosOptions
  * @return {Hadrian}
  */
-function factory (siteUuid, axiosOptions = {}) {
-    return new Hadrian(siteUuid, axiosOptions)
+function factory (axiosOptions = {}) {
+    return new Hadrian(axiosOptions)
 }
 
 module.exports = factory
