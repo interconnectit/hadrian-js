@@ -841,14 +841,14 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 /**
  * Create a new hadrian instance
  *
- * @param {String} siteUuid
  * @param {String} axiosOptions
+ *
  * @return {Hadrian}
  */
-function factory(siteUuid) {
-  var axiosOptions = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+function factory() {
+  var axiosOptions = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
-  return new _hadrian2.default(siteUuid, axiosOptions);
+  return new _hadrian2.default(axiosOptions);
 }
 
 module.exports = factory;
@@ -897,7 +897,12 @@ function createAxiosInstance(options) {
     return instance;
 }
 
-function evaluateMetricsResponse(_ref) {
+/**
+ * Evaluate the metering response.
+ *
+ * @param {Object} data
+ */
+function evaluateMeteringResponse(_ref) {
     var data = _ref.data;
 
     if (!data.data.evaluation.trigger) return;
@@ -936,6 +941,7 @@ var Hadrian = function () {
      *
      * @param {Object} condition
      * @param {Function} callback
+     *
      * @return {Hadrian}
      */
 
@@ -953,7 +959,7 @@ var Hadrian = function () {
     }, {
         key: 'evaluate',
         value: function evaluate(payload) {
-            this.axios.post('views', { payload: payload }).then(evaluateMetricsResponse.bind(this));
+            this.axios.post('views', { payload: payload }).then(evaluateMeteringResponse.bind(this));
         }
     }]);
     return Hadrian;
