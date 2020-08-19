@@ -1,5 +1,13 @@
 import axios from 'axios'
 import { defaults, each, isEqualWith } from 'lodash'
+import Cookies from 'js-cookie'
+
+/**
+ * The cookie name.
+ *
+ * @type {string}
+ */
+const COOKIE_NAME = '__hsi'
 
 /**
  * Create a new axios instance
@@ -14,6 +22,26 @@ function createAxiosInstance (options) {
         timeout: 2000,
         withCredentials: true
     }))
+
+    instance.interceptors.request.use(request => {
+        const sessionId = Cookies.get(COOKIE_NAME)
+
+        if (sessionId) {
+            request.headers.common['x-session-id'] = sessionId
+        }
+
+        return request
+    })
+
+    instance.interceptors.response.use(response => {
+        const sessionId = response.data.data.session_id
+
+        if (sessionId) {
+            Cookies.set(COOKIE_NAME, sessionId)
+        }
+
+        return response
+    })
 
     return instance
 }
