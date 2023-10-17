@@ -38,22 +38,6 @@ function generateConfig (filename) {
         ]
     }
 
-    config.plugins = [
-        new webpack.DefinePlugin({
-            'process.env.NODE_ENV': JSON.stringify('production')
-        })
-    ]
-
-    if (isMinified) {
-        config.plugins.push(
-            new webpack.optimize.UglifyJsPlugin({
-                compressor: {
-                    warnings: false
-                }
-            })
-        )
-    }
-
     return config
 }
 
@@ -62,3 +46,6 @@ function generateConfig (filename) {
 })
 
 module.exports = config
+module.exports = {
+    mode: 'production'
+}
