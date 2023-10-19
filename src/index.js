@@ -1,4 +1,5 @@
-import Hadrian from './core/hadrian'
+'use strict'
+const Hadrian = require ('./core/hadrian')
 
 /**
  * Create a new hadrian instance
