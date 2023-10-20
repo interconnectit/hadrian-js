@@ -3,20 +3,26 @@
 [![build status](https://img.shields.io/travis/interconnectit/hadrian-js.svg?style=flat-square)](https://travis-ci.org/interconnectit/hadrian-js)
 [![code style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat-square)](http://standardjs.com)
 
-This is where your description should go. Try and limit it to a paragraph or two.
+This Library is used to send a payload to Hadrian and handle the evaluated response.
 
 ## Install
 
-Via NPM
+include via NPM
 
 ``` bash
 $ npm install --save @interconnectit/hadrian
 ```
 
-Via CDN
+Pull via CDN
 
 ``` html
-<script src="//unpkg.com/@interconnectit/hadrian/dist/hadrian.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/interconnectit/hadrian-js/dist/hadrian.min.js"></script>
+```
+
+or you can pull a specific version
+
+``` html
+<script src="https://cdn.jsdelivr.net/gh/interconnectit/hadrian-js@2.0.0/dist/hadrian.min.js">
 ```
 
 ## Usage
@@ -35,6 +41,12 @@ hadrian()
         post_title: 'Lorem ipsum dolor sit amet',
         ...
     })
+```
+
+## Compile
+
+``` bash    
+$ npm run build
 ```
 
 ## Testing
