@@ -46,6 +46,3 @@ function generateConfig (filename) {
 })
 
 module.exports = config
-module.exports = {
-    mode: 'production'
-}

@@ -1,6 +1,7 @@
-import axios from 'axios'
-import { defaults, each, isEqualWith } from 'lodash'
-import Cookies from 'js-cookie'
+'use strict'
+const axios = require('axios')
+const { defaults, each, isEqualWith } = require('lodash')
+const Cookies = require('js-cookie')
 
 /**
  * The cookie name.
@@ -27,7 +28,7 @@ function createAxiosInstance (options) {
         const sessionId = Cookies.get(COOKIE_NAME)
 
         if (sessionId) {
-            request.headers.common['x-session-id'] = sessionId
+            request.headers['x-session-id'] = sessionId
         }
 
         return request
@@ -103,4 +104,4 @@ class Hadrian {
     }
 }
 
-export default Hadrian
+module.exports = Hadrian
