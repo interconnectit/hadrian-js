@@ -1,4 +1,4 @@
-/*! Axios v1.15.0 Copyright (c) 2026 Matt Zabriskie and contributors */
+/*! Axios v1.16.0 Copyright (c) 2026 Matt Zabriskie and contributors */
 
 /**
  * @license
