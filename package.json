@@ -23,8 +23,8 @@
     },
     "homepage": "https://github.com/interconnectit/hadrian-js#readme",
     "engines": {
-        "node": "^20.0.0",
-        "npm": "^10.0.0"
+        "node": "^22.x.x",
+        "npm": "^10.x.x"
     },
     "dependencies": {
         "@babel/runtime": "7.29.2",
