@@ -53,7 +53,7 @@ function createAxiosInstance (options) {
  * @param {Object} data
  */
 function evaluateMeteringResponse ({data}) {
-    if (!data.data.evaluation.trigger) return
+    if (!data.data.evaluation || !data.data.evaluation.trigger) return
 
     const compareCustomizer = (objValue, othValue) => {
         return othValue === '*'
